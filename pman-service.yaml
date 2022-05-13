@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml -o /home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s
+    kompose.version: 1.26.0 (40646f47)
+    org.chrisproject.role: pman
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pman
+  name: pman
+spec:
+  ports:
+    - name: "5010"
+      port: 5010
+      targetPort: 5010
+  selector:
+    io.kompose.service: pman
+status:
+  loadBalancer: {}

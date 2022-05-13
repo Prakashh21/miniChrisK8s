@@ -1,0 +1,78 @@
+
+## command used `kompose convert -f docker-compose.yml -o $(pwd)/miniChrisK8s`
+
+
+INFO Service name in docker-compose has been changed from "chris_ui" to "chris-ui" 
+INFO Service name in docker-compose has been changed from "worker_periodic" to "worker-periodic" 
+INFO Service name in docker-compose has been changed from "chris_store_db" to "chris-store-db" 
+INFO Service name in docker-compose has been changed from "chris_db" to "chris-db" 
+INFO Service name in docker-compose has been changed from "chris_store" to "chris-store" 
+INFO Service name in docker-compose has been changed from "chris_store_ui" to "chris-store-ui" 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Create kubernetes pod instead of pod controller due to restart policy: on-failure 
+WARN Service "chris_db" won't be created because 'ports' is not specified 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+WARN Service "chris_store_db" won't be created because 'ports' is not specified 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+WARN Service "chrisomatic" won't be created because 'ports' is not specified 
+WARN Volume mount on the host "/home/prakash/openSource/miniChris-prakash/miniChRIS/chrisomatic.yml" isn't supported - ignoring path on the host 
+WARN Volume mount on the host "/var/run/docker.sock" isn't supported - ignoring path on the host 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Network remote is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+WARN Volume mount on the host "/var/run/docker.sock" isn't supported - ignoring path on the host 
+WARN Volume mount on the host "/home/prakash/openSource/miniChris-prakash/miniChRIS/workarounds/storebase.sh" isn't supported - ignoring path on the host 
+INFO Network remote is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Create kubernetes pod instead of pod controller due to restart policy: on-failure 
+WARN Service "queue" won't be created because 'ports' is not specified 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Create kubernetes pod instead of pod controller due to restart policy: on-failure 
+WARN Service "scheduler" won't be created because 'ports' is not specified 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+WARN Service "swarm-status" won't be created because 'ports' is not specified 
+WARN Volume mount on the host "/var/run/docker.sock" isn't supported - ignoring path on the host 
+WARN Volume mount on the host "/home/prakash/openSource/miniChris-prakash/miniChRIS/workarounds/swarm.sh" isn't supported - ignoring path on the host 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Create kubernetes pod instead of pod controller due to restart policy: on-failure 
+WARN Service "worker" won't be created because 'ports' is not specified 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Create kubernetes pod instead of pod controller due to restart policy: on-failure 
+WARN Service "worker_periodic" won't be created because 'ports' is not specified 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chris-service.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chris_store-service.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chris_store_ui-service.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chris_ui-service.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/pfcon-service.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/pman-service.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/swift-service.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chris-deployment.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/secrets-env-configmap.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/local-networkpolicy.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chris-db-pod.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chris-db-data-persistentvolumeclaim.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chris-store-deployment.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chris-store-db-deployment.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chris-store-db-data-persistentvolumeclaim.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chris-store-ui-deployment.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chris-ui-deployment.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chrisomatic-deployment.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chrisomatic-claim0-persistentvolumeclaim.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/chrisomatic-claim1-persistentvolumeclaim.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/pfcon-deployment.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/remote-persistentvolumeclaim.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/remote-networkpolicy.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/pman-deployment.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/pman-claim0-persistentvolumeclaim.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/pman-claim1-persistentvolumeclaim.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/queue-pod.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/scheduler-pod.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/swarm-status-deployment.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/swarm-status-claim0-persistentvolumeclaim.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/swarm-status-claim1-persistentvolumeclaim.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/swift-deployment.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/swift-storage-persistentvolumeclaim.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/worker-pod.yaml" created 
+INFO Kubernetes file "/home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s/worker-periodic-pod.yaml" created 
+

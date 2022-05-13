@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml -o /home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s
+    kompose.version: 1.26.0 (40646f47)
+    org.chrisproject.role: pfcon
+  creationTimestamp: null
+  labels:
+    io.kompose.service: pfcon
+  name: pfcon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: pfcon
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o /home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s
+        kompose.version: 1.26.0 (40646f47)
+        org.chrisproject.role: pfcon
+      creationTimestamp: null
+      labels:
+        io.kompose.network/local: "true"
+        io.kompose.network/remote: "true"
+        io.kompose.service: pfcon
+    spec:
+      containers:
+        - env:
+            - name: COMPUTE_SERVICE_URL
+              value: http://pman:5010/api/v1/
+            - name: PFCON_PASSWORD
+              value: pfcon1234
+            - name: PFCON_USER
+              value: pfcon
+            - name: SECRET_KEY
+              value: secret
+          image: fnndsc/pfcon:next-5.0.0.a1.git.6822e96
+          name: pfcon
+          ports:
+            - containerPort: 5005
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/local/storeBase
+              name: remote
+      restartPolicy: Always
+      volumes:
+        - name: remote
+          persistentVolumeClaim:
+            claimName: remote
+status: {}

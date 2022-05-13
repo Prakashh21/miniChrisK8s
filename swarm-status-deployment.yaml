@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml -o /home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: swarm-status
+  name: swarm-status
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: swarm-status
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o /home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: swarm-status
+    spec:
+      containers:
+        - command:
+            - /entrypoint.sh
+          image: docker
+          name: swarm-status
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/run/docker.sock
+              name: swarm-status-claim0
+            - mountPath: /entrypoint.sh
+              name: swarm-status-claim1
+      restartPolicy: Always
+      volumes:
+        - name: swarm-status-claim0
+          persistentVolumeClaim:
+            claimName: swarm-status-claim0
+        - name: swarm-status-claim1
+          persistentVolumeClaim:
+            claimName: swarm-status-claim1
+status: {}

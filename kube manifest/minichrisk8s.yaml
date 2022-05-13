@@ -1,0 +1,1235 @@
+apiVersion: v1
+items:
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+        org.chrisproject.miniChRIS: miniChRIS
+        org.chrisproject.role: ChRIS ultron backEnd
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chris
+      name: chris
+    spec:
+      ports:
+        - name: "8000"
+          port: 8000
+          targetPort: 8000
+      selector:
+        io.kompose.service: chris
+    status:
+      loadBalancer: {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chris-store
+      name: chris-store
+    spec:
+      ports:
+        - name: "8010"
+          port: 8010
+          targetPort: 8010
+      selector:
+        io.kompose.service: chris-store
+    status:
+      loadBalancer: {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chris-store-ui
+      name: chris-store-ui
+    spec:
+      ports:
+        - name: "8021"
+          port: 8021
+          targetPort: 3000
+      selector:
+        io.kompose.service: chris-store-ui
+    status:
+      loadBalancer: {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chris-ui
+      name: chris-ui
+    spec:
+      ports:
+        - name: "8020"
+          port: 8020
+          targetPort: 3000
+      selector:
+        io.kompose.service: chris-ui
+    status:
+      loadBalancer: {}
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: swift
+      name: swift
+    spec:
+      ports:
+        - name: "8080"
+          port: 8080
+          targetPort: 8080
+      selector:
+        io.kompose.service: swift
+    status:
+      loadBalancer: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+        org.chrisproject.miniChRIS: miniChRIS
+        org.chrisproject.role: ChRIS ultron backEnd
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chris
+      name: chris
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: chris
+      strategy: {}
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+            kompose.version: 1.26.0 (40646f47)
+            org.chrisproject.miniChRIS: miniChRIS
+            org.chrisproject.role: ChRIS ultron backEnd
+          creationTimestamp: null
+          labels:
+            io.kompose.network/local: "true"
+            io.kompose.service: chris
+        spec:
+          containers:
+            - env:
+                - name: CELERY_BROKER_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      key: CELERY_BROKER_URL
+                      name: secrets-env
+                - name: CHRIS_STORE_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      key: CHRIS_STORE_URL
+                      name: secrets-env
+                - name: DATABASE_HOST
+                  valueFrom:
+                    configMapKeyRef:
+                      key: DATABASE_HOST
+                      name: secrets-env
+                - name: DATABASE_PORT
+                  valueFrom:
+                    configMapKeyRef:
+                      key: DATABASE_PORT
+                      name: secrets-env
+                - name: DJANGO_ALLOWED_HOSTS
+                  valueFrom:
+                    configMapKeyRef:
+                      key: DJANGO_ALLOWED_HOSTS
+                      name: secrets-env
+                - name: DJANGO_COLLECTSTATIC
+                  value: "on"
+                - name: DJANGO_CORS_ORIGIN_ALLOW_ALL
+                  valueFrom:
+                    configMapKeyRef:
+                      key: DJANGO_CORS_ORIGIN_ALLOW_ALL
+                      name: secrets-env
+                - name: DJANGO_CORS_ORIGIN_WHITELIST
+                  valueFrom:
+                    configMapKeyRef:
+                      key: DJANGO_CORS_ORIGIN_WHITELIST
+                      name: secrets-env
+                - name: DJANGO_DB_MIGRATE
+                  value: "on"
+                - name: DJANGO_SECRET_KEY
+                  valueFrom:
+                    configMapKeyRef:
+                      key: DJANGO_SECRET_KEY
+                      name: secrets-env
+                - name: DJANGO_SECURE_PROXY_SSL_HEADER
+                  valueFrom:
+                    configMapKeyRef:
+                      key: DJANGO_SECURE_PROXY_SSL_HEADER
+                      name: secrets-env
+                - name: DJANGO_SETTINGS_MODULE
+                  valueFrom:
+                    configMapKeyRef:
+                      key: DJANGO_SETTINGS_MODULE
+                      name: secrets-env
+                - name: DJANGO_USE_X_FORWARDED_HOST
+                  valueFrom:
+                    configMapKeyRef:
+                      key: DJANGO_USE_X_FORWARDED_HOST
+                      name: secrets-env
+                - name: POSTGRES_DB
+                  valueFrom:
+                    configMapKeyRef:
+                      key: POSTGRES_DB
+                      name: secrets-env
+                - name: POSTGRES_PASSWORD
+                  valueFrom:
+                    configMapKeyRef:
+                      key: POSTGRES_PASSWORD
+                      name: secrets-env
+                - name: POSTGRES_USER
+                  valueFrom:
+                    configMapKeyRef:
+                      key: POSTGRES_USER
+                      name: secrets-env
+                - name: STATIC_ROOT
+                  valueFrom:
+                    configMapKeyRef:
+                      key: STATIC_ROOT
+                      name: secrets-env
+                - name: SWIFT_AUTH_URL
+                  valueFrom:
+                    configMapKeyRef:
+                      key: SWIFT_AUTH_URL
+                      name: secrets-env
+                - name: SWIFT_CONTAINER_NAME
+                  valueFrom:
+                    configMapKeyRef:
+                      key: SWIFT_CONTAINER_NAME
+                      name: secrets-env
+                - name: SWIFT_KEY
+                  valueFrom:
+                    configMapKeyRef:
+                      key: SWIFT_KEY
+                      name: secrets-env
+                - name: SWIFT_USERNAME
+                  valueFrom:
+                    configMapKeyRef:
+                      key: SWIFT_USERNAME
+                      name: secrets-env
+              image: fnndsc/cube:next-3.0.0.a2.git.ba5ff6f
+              name: chris
+              ports:
+                - containerPort: 8000
+              resources: {}
+          restartPolicy: Always
+    status: {}
+  - apiVersion: v1
+    data:
+      CELERY_BROKER_URL: amqp://queue:5672
+      CHRIS_STORE_URL: http://chrisstore.local:8010/api/v1/
+      DATABASE_HOST: chris_db
+      DATABASE_PORT: "5432"
+      DJANGO_ALLOWED_HOSTS: '*'
+      DJANGO_CORS_ORIGIN_ALLOW_ALL: "true"
+      DJANGO_CORS_ORIGIN_WHITELIST: babymri.org
+      DJANGO_SECRET_KEY: secret
+      DJANGO_SECURE_PROXY_SSL_HEADER: ""
+      DJANGO_SETTINGS_MODULE: config.settings.production
+      DJANGO_USE_X_FORWARDED_HOST: "false"
+      POSTGRES_DB: chris
+      POSTGRES_PASSWORD: chris1234
+      POSTGRES_USER: chris
+      STATIC_ROOT: /home/localuser/mod_wsgi-0.0.0.0:8000/htdocs/static/
+      SWIFT_AUTH_URL: http://swift:8080/auth/v1.0
+      SWIFT_CONTAINER_NAME: users
+      SWIFT_KEY: testing
+      SWIFT_USERNAME: chris:chris1234
+    kind: ConfigMap
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chris-secrets-env
+      name: secrets-env
+  - apiVersion: networking.k8s.io/v1
+    kind: NetworkPolicy
+    metadata:
+      creationTimestamp: null
+      name: local
+    spec:
+      ingress:
+        - from:
+            - podSelector:
+                matchLabels:
+                  io.kompose.network/local: "true"
+      podSelector:
+        matchLabels:
+          io.kompose.network/local: "true"
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/local: "true"
+        io.kompose.service: chris-db
+      name: chris-db
+    spec:
+      containers:
+        - env:
+            - name: CELERY_BROKER_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CELERY_BROKER_URL
+                  name: secrets-env
+            - name: CHRIS_STORE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CHRIS_STORE_URL
+                  name: secrets-env
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_HOST
+                  name: secrets-env
+            - name: DATABASE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_PORT
+                  name: secrets-env
+            - name: DJANGO_ALLOWED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_ALLOWED_HOSTS
+                  name: secrets-env
+            - name: DJANGO_CORS_ORIGIN_ALLOW_ALL
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_CORS_ORIGIN_ALLOW_ALL
+                  name: secrets-env
+            - name: DJANGO_CORS_ORIGIN_WHITELIST
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_CORS_ORIGIN_WHITELIST
+                  name: secrets-env
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SECRET_KEY
+                  name: secrets-env
+            - name: DJANGO_SECURE_PROXY_SSL_HEADER
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SECURE_PROXY_SSL_HEADER
+                  name: secrets-env
+            - name: DJANGO_SETTINGS_MODULE
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SETTINGS_MODULE
+                  name: secrets-env
+            - name: DJANGO_USE_X_FORWARDED_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_USE_X_FORWARDED_HOST
+                  name: secrets-env
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_DB
+                  name: secrets-env
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: secrets-env
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_USER
+                  name: secrets-env
+            - name: STATIC_ROOT
+              valueFrom:
+                configMapKeyRef:
+                  key: STATIC_ROOT
+                  name: secrets-env
+            - name: SWIFT_AUTH_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_AUTH_URL
+                  name: secrets-env
+            - name: SWIFT_CONTAINER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_CONTAINER_NAME
+                  name: secrets-env
+            - name: SWIFT_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_KEY
+                  name: secrets-env
+            - name: SWIFT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_USERNAME
+                  name: secrets-env
+          image: postgres:13
+          name: chris-db
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: chris-db-data
+      restartPolicy: OnFailure
+      volumes:
+        - name: chris-db-data
+          persistentVolumeClaim:
+            claimName: chris-db-data
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chris-db-data
+      name: chris-db-data
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chris-store
+      name: chris-store
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: chris-store
+      strategy: {}
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.network/local: "true"
+            io.kompose.service: chris-store
+        spec:
+          containers:
+            - env:
+                - name: DATABASE_HOST
+                  value: chris_store_db
+                - name: DATABASE_PORT
+                  value: "5432"
+                - name: DJANGO_ALLOWED_HOSTS
+                  value: '*'
+                - name: DJANGO_CORS_ORIGIN_ALLOW_ALL
+                  value: "true"
+                - name: DJANGO_CORS_ORIGIN_WHITELIST
+                  value: babymri.org
+                - name: DJANGO_DB_MIGRATE
+                  value: "on"
+                - name: DJANGO_SECRET_KEY
+                  value: secret
+                - name: DJANGO_SECURE_PROXY_SSL_HEADER
+                - name: DJANGO_SETTINGS_MODULE
+                  value: config.settings.production
+                - name: DJANGO_USE_X_FORWARDED_HOST
+                  value: "false"
+                - name: POSTGRES_DB
+                  value: chris_store
+                - name: POSTGRES_PASSWORD
+                  value: chirs1234
+                - name: POSTGRES_USER
+                  value: chris
+                - name: SWIFT_AUTH_URL
+                  value: http://swift:8080/auth/v1.0
+                - name: SWIFT_CONTAINER_NAME
+                  value: store_users
+                - name: SWIFT_KEY
+                  value: testing
+                - name: SWIFT_USERNAME
+                  value: chris:chris1234
+              image: ghcr.io/fnndsc/chris_store:2.0.1
+              name: chris-store
+              ports:
+                - containerPort: 8010
+              resources: {}
+          restartPolicy: Always
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+        name: ChRIS_store MySQL Database
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chris-store-db
+      name: chris-store-db
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: chris-store-db
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+            kompose.version: 1.26.0 (40646f47)
+            name: ChRIS_store MySQL Database
+          creationTimestamp: null
+          labels:
+            io.kompose.network/local: "true"
+            io.kompose.service: chris-store-db
+        spec:
+          containers:
+            - env:
+                - name: POSTGRES_DB
+                  value: chris_store
+                - name: POSTGRES_PASSWORD
+                  value: chirs1234
+                - name: POSTGRES_USER
+                  value: chris
+              image: postgres:13
+              name: chris-store-db
+              resources: {}
+              volumeMounts:
+                - mountPath: /var/lib/mysql
+                  name: chris-store-db-data
+          restartPolicy: Always
+          volumes:
+            - name: chris-store-db-data
+              persistentVolumeClaim:
+                claimName: chris-store-db-data
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chris-store-db-data
+      name: chris-store-db-data
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chris-store-ui
+      name: chris-store-ui
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: chris-store-ui
+      strategy: {}
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.service: chris-store-ui
+        spec:
+          containers:
+            - args:
+                - sirv
+                - --quiet
+                - --single
+              env:
+                - name: REACT_APP_STORE_URL
+                  value: http://localhost:8010/api/v1/
+              image: docker.io/fnndsc/chris_store_ui:0.2.0-rc.1
+              name: chris-store-ui
+              ports:
+                - containerPort: 3000
+              resources: {}
+          restartPolicy: Always
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chris-ui
+      name: chris-ui
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: chris-ui
+      strategy: {}
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.service: chris-ui
+        spec:
+          containers:
+            - args:
+                - sirv
+                - --quiet
+                - --single
+              env:
+                - name: REACT_APP_CHRIS_UI_URL
+                  value: http://localhost:8000/api/v1/
+              image: ghcr.io/fnndsc/chris_ui:20220304
+              name: chris-ui
+              ports:
+                - containerPort: 3000
+              resources: {}
+          restartPolicy: Always
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chrisomatic
+      name: chrisomatic
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: chrisomatic
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.network/local: "true"
+            io.kompose.service: chrisomatic
+        spec:
+          containers:
+            - image: ghcr.io/fnndsc/chrisomatic:0.1.5
+              name: chrisomatic
+              resources: {}
+              volumeMounts:
+                - mountPath: /etc/chrisomatic/chrisomatic.yml
+                  name: chrisomatic-claim0
+                  readOnly: true
+                - mountPath: /var/run/docker.sock
+                  name: chrisomatic-claim1
+          restartPolicy: Always
+          volumes:
+            - name: chrisomatic-claim0
+              persistentVolumeClaim:
+                claimName: chrisomatic-claim0
+                readOnly: true
+            - name: chrisomatic-claim1
+              persistentVolumeClaim:
+                claimName: chrisomatic-claim1
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chrisomatic-claim0
+      name: chrisomatic-claim0
+    spec:
+      accessModes:
+        - ReadOnlyMany
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: chrisomatic-claim1
+      name: chrisomatic-claim1
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/local: "true"
+        io.kompose.service: queue
+      name: queue
+    spec:
+      containers:
+        - image: rabbitmq:3
+          name: queue
+          resources: {}
+      restartPolicy: OnFailure
+    status: {}
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/local: "true"
+        io.kompose.service: scheduler
+      name: scheduler
+    spec:
+      containers:
+        - args:
+            - bash
+            - -c
+            - celery -A core beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+          env:
+            - name: CELERY_BROKER_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CELERY_BROKER_URL
+                  name: secrets-env
+            - name: CHRIS_STORE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CHRIS_STORE_URL
+                  name: secrets-env
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_HOST
+                  name: secrets-env
+            - name: DATABASE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_PORT
+                  name: secrets-env
+            - name: DJANGO_ALLOWED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_ALLOWED_HOSTS
+                  name: secrets-env
+            - name: DJANGO_COLLECTSTATIC
+              value: "off"
+            - name: DJANGO_CORS_ORIGIN_ALLOW_ALL
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_CORS_ORIGIN_ALLOW_ALL
+                  name: secrets-env
+            - name: DJANGO_CORS_ORIGIN_WHITELIST
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_CORS_ORIGIN_WHITELIST
+                  name: secrets-env
+            - name: DJANGO_DB_MIGRATE
+              value: "off"
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SECRET_KEY
+                  name: secrets-env
+            - name: DJANGO_SECURE_PROXY_SSL_HEADER
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SECURE_PROXY_SSL_HEADER
+                  name: secrets-env
+            - name: DJANGO_SETTINGS_MODULE
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SETTINGS_MODULE
+                  name: secrets-env
+            - name: DJANGO_USE_X_FORWARDED_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_USE_X_FORWARDED_HOST
+                  name: secrets-env
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_DB
+                  name: secrets-env
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: secrets-env
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_USER
+                  name: secrets-env
+            - name: STATIC_ROOT
+              valueFrom:
+                configMapKeyRef:
+                  key: STATIC_ROOT
+                  name: secrets-env
+            - name: SWIFT_AUTH_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_AUTH_URL
+                  name: secrets-env
+            - name: SWIFT_CONTAINER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_CONTAINER_NAME
+                  name: secrets-env
+            - name: SWIFT_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_KEY
+                  name: secrets-env
+            - name: SWIFT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_USERNAME
+                  name: secrets-env
+          image: fnndsc/cube:next-3.0.0.a2.git.ba5ff6f
+          name: scheduler
+          resources: {}
+      restartPolicy: OnFailure
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: swarm-status
+      name: swarm-status
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: swarm-status
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.service: swarm-status
+        spec:
+          containers:
+            - command:
+                - /entrypoint.sh
+              image: docker
+              name: swarm-status
+              resources: {}
+              volumeMounts:
+                - mountPath: /var/run/docker.sock
+                  name: swarm-status-claim0
+                - mountPath: /entrypoint.sh
+                  name: swarm-status-claim1
+          restartPolicy: Always
+          volumes:
+            - name: swarm-status-claim0
+              persistentVolumeClaim:
+                claimName: swarm-status-claim0
+            - name: swarm-status-claim1
+              persistentVolumeClaim:
+                claimName: swarm-status-claim1
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: swarm-status-claim0
+      name: swarm-status-claim0
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: swarm-status-claim1
+      name: swarm-status-claim1
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: apps/v1
+    kind: Deployment
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.service: swift
+      name: swift
+    spec:
+      replicas: 1
+      selector:
+        matchLabels:
+          io.kompose.service: swift
+      strategy:
+        type: Recreate
+      template:
+        metadata:
+          annotations:
+            kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+            kompose.version: 1.26.0 (40646f47)
+          creationTimestamp: null
+          labels:
+            io.kompose.network/local: "true"
+            io.kompose.service: swift
+        spec:
+          containers:
+            - env:
+                - name: SWIFT_KEY
+                  value: testing
+                - name: SWIFT_USERNAME
+                  value: chris:chris1234
+              image: fnndsc/docker-swift-onlyone:latest
+              name: swift
+              ports:
+                - containerPort: 8080
+              resources: {}
+              volumeMounts:
+                - mountPath: /srv
+                  name: swift-storage
+          restartPolicy: Always
+          volumes:
+            - name: swift-storage
+              persistentVolumeClaim:
+                claimName: swift-storage
+    status: {}
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: swift-storage
+      name: swift-storage
+    spec:
+      accessModes:
+        - ReadWriteOnce
+      resources:
+        requests:
+          storage: 100Mi
+    status: {}
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/local: "true"
+        io.kompose.service: worker
+      name: worker
+    spec:
+      containers:
+        - args:
+            - celery
+            - -A
+            - core
+            - worker
+            - -c
+            - "4"
+            - -l
+            - info
+            - -Q
+            - main1,main2
+          env:
+            - name: CELERY_BROKER_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CELERY_BROKER_URL
+                  name: secrets-env
+            - name: CHRIS_STORE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CHRIS_STORE_URL
+                  name: secrets-env
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_HOST
+                  name: secrets-env
+            - name: DATABASE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_PORT
+                  name: secrets-env
+            - name: DJANGO_ALLOWED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_ALLOWED_HOSTS
+                  name: secrets-env
+            - name: DJANGO_COLLECTSTATIC
+              value: "off"
+            - name: DJANGO_CORS_ORIGIN_ALLOW_ALL
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_CORS_ORIGIN_ALLOW_ALL
+                  name: secrets-env
+            - name: DJANGO_CORS_ORIGIN_WHITELIST
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_CORS_ORIGIN_WHITELIST
+                  name: secrets-env
+            - name: DJANGO_DB_MIGRATE
+              value: "off"
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SECRET_KEY
+                  name: secrets-env
+            - name: DJANGO_SECURE_PROXY_SSL_HEADER
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SECURE_PROXY_SSL_HEADER
+                  name: secrets-env
+            - name: DJANGO_SETTINGS_MODULE
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SETTINGS_MODULE
+                  name: secrets-env
+            - name: DJANGO_USE_X_FORWARDED_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_USE_X_FORWARDED_HOST
+                  name: secrets-env
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_DB
+                  name: secrets-env
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: secrets-env
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_USER
+                  name: secrets-env
+            - name: STATIC_ROOT
+              valueFrom:
+                configMapKeyRef:
+                  key: STATIC_ROOT
+                  name: secrets-env
+            - name: SWIFT_AUTH_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_AUTH_URL
+                  name: secrets-env
+            - name: SWIFT_CONTAINER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_CONTAINER_NAME
+                  name: secrets-env
+            - name: SWIFT_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_KEY
+                  name: secrets-env
+            - name: SWIFT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_USERNAME
+                  name: secrets-env
+          image: fnndsc/cube:next-3.0.0.a2.git.ba5ff6f
+          name: worker
+          resources: {}
+      restartPolicy: OnFailure
+    status: {}
+  - apiVersion: v1
+    kind: Pod
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml -o minichrisk8s.yaml
+        kompose.version: 1.26.0 (40646f47)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/local: "true"
+        io.kompose.service: worker-periodic
+      name: worker-periodic
+    spec:
+      containers:
+        - args:
+            - celery
+            - -A
+            - core
+            - worker
+            - -c
+            - "2"
+            - -l
+            - info
+            - -Q
+            - periodic
+          env:
+            - name: CELERY_BROKER_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CELERY_BROKER_URL
+                  name: secrets-env
+            - name: CHRIS_STORE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CHRIS_STORE_URL
+                  name: secrets-env
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_HOST
+                  name: secrets-env
+            - name: DATABASE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_PORT
+                  name: secrets-env
+            - name: DJANGO_ALLOWED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_ALLOWED_HOSTS
+                  name: secrets-env
+            - name: DJANGO_COLLECTSTATIC
+              value: "off"
+            - name: DJANGO_CORS_ORIGIN_ALLOW_ALL
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_CORS_ORIGIN_ALLOW_ALL
+                  name: secrets-env
+            - name: DJANGO_CORS_ORIGIN_WHITELIST
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_CORS_ORIGIN_WHITELIST
+                  name: secrets-env
+            - name: DJANGO_DB_MIGRATE
+              value: "off"
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SECRET_KEY
+                  name: secrets-env
+            - name: DJANGO_SECURE_PROXY_SSL_HEADER
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SECURE_PROXY_SSL_HEADER
+                  name: secrets-env
+            - name: DJANGO_SETTINGS_MODULE
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SETTINGS_MODULE
+                  name: secrets-env
+            - name: DJANGO_USE_X_FORWARDED_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_USE_X_FORWARDED_HOST
+                  name: secrets-env
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_DB
+                  name: secrets-env
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: secrets-env
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_USER
+                  name: secrets-env
+            - name: STATIC_ROOT
+              valueFrom:
+                configMapKeyRef:
+                  key: STATIC_ROOT
+                  name: secrets-env
+            - name: SWIFT_AUTH_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_AUTH_URL
+                  name: secrets-env
+            - name: SWIFT_CONTAINER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_CONTAINER_NAME
+                  name: secrets-env
+            - name: SWIFT_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_KEY
+                  name: secrets-env
+            - name: SWIFT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_USERNAME
+                  name: secrets-env
+          image: fnndsc/cube:next-3.0.0.a2.git.ba5ff6f
+          name: worker-periodic
+          resources: {}
+      restartPolicy: OnFailure
+    status: {}
+kind: List
+metadata: {}
+

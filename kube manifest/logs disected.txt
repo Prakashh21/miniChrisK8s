@@ -1,0 +1,92 @@
+## services name which were changed because of the presence of "_" (underscore) in their name 
+
+INFO Service name in docker-compose has been changed from "chris_ui" to "chris-ui" 
+INFO Service name in docker-compose has been changed from "worker_periodic" to "worker-periodic" 
+INFO Service name in docker-compose has been changed from "chris_store_db" to "chris-store-db" 
+INFO Service name in docker-compose has been changed from "chris_db" to "chris-db" 
+INFO Service name in docker-compose has been changed from "chris_store" to "chris-store" 
+INFO Service name in docker-compose has been changed from "chris_store_ui" to "chris-store-ui" 
+
+
+## Create kubernetes pod
+
+INFO Create kubernetes pod instead of pod controller due to restart policy: on-failure 
+INFO Create kubernetes pod instead of pod controller due to restart policy: on-failure 
+INFO Create kubernetes pod instead of pod controller due to restart policy: on-failure 
+INFO Create kubernetes pod instead of pod controller due to restart policy: on-failure 
+INFO Create kubernetes pod instead of pod controller due to restart policy: on-failure 
+
+
+
+## ports not specified
+
+
+
+WARN Service "chris_db" won't be created because 'ports' is not specified 
+WARN Service "chris_store_db" won't be created because 'ports' is not specified 
+WARN Service "chrisomatic" won't be created because 'ports' is not specified 
+WARN Service "queue" won't be created because 'ports' is not specified 
+WARN Service "scheduler" won't be created because 'ports' is not specified 
+WARN Service "swarm-status" won't be created because 'ports' is not specified 
+WARN Service "worker" won't be created because 'ports' is not specified 
+WARN Service "worker_periodic" won't be created because 'ports' is not specified 
+
+
+## volume mount on the host
+
+WARN Volume mount on the host "/home/prakash/openSource/miniChris-prakash/miniChRIS/chrisomatic.yml" isn't supported - ignoring path on the host 
+WARN Volume mount on the host "/var/run/docker.sock" isn't supported - ignoring path on the host 
+WARN Volume mount on the host "/var/run/docker.sock" isn't supported - ignoring path on the host 
+WARN Volume mount on the host "/home/prakash/openSource/miniChris-prakash/miniChRIS/workarounds/storebase.sh" isn't supported - ignoring path on the host 
+WARN Volume mount on the host "/var/run/docker.sock" isn't supported - ignoring path on the host 
+WARN Volume mount on the host "/home/prakash/openSource/miniChris-prakash/miniChRIS/workarounds/swarm.sh" isn't supported - ignoring path on the host 
+
+
+## Network Policy
+
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Network remote is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Network remote is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination 
+INFO Network local is detected at Source, shall be converted to equivalent NetworkPolicy at Destination
+
+
+
+## pods and service that couldnot be started because of "_" (underscore) in there name/label //checked
+
+Error from server (NotFound): error when deleting "chris-db-pod.yaml": pods "chris-db" not found
+Error from server (NotFound): error when deleting "chris-store-db-deployment.yaml": deployments.apps "chris-store-db" not found
+Error from server (NotFound): error when deleting "chris-store-ui-deployment.yaml": deployments.apps "chris-store-ui" not found
+Error from server (NotFound): error when deleting "chris-ui-deployment.yaml": deployments.apps "chris-ui" not found
+Error from server (NotFound): error when deleting "chris_store-service.yaml": services "chris_store" not found
+Error from server (NotFound): error when deleting "chris_store_ui-service.yaml": services "chris_store_ui" not found
+Error from server (NotFound): error when deleting "chris_ui-service.yaml": services "chris_ui" not found
+Error from server (NotFound): error when deleting "worker-periodic-pod.yaml": pods "worker-periodic" not found
+
+
+
+
+
+
+## exact error logs: // checked
+
+Error from server (Invalid): error when creating "chris-db-pod.yaml": Pod "chris-db" is invalid: spec.containers[0].name: Invalid value: "chris_db": a lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?')
+Error from server (Invalid): error when creating "chris-store-db-deployment.yaml": Deployment.apps "chris-store-db" is invalid: spec.template.spec.containers[0].name: Invalid value: "chris_store_db": a lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?')
+Error from server (Invalid): error when creating "chris-store-ui-deployment.yaml": Deployment.apps "chris-store-ui" is invalid: spec.template.spec.containers[0].name: Invalid value: "chris_store_ui": a lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?')
+Error from server (Invalid): error when creating "chris-ui-deployment.yaml": Deployment.apps "chris-ui" is invalid: spec.template.spec.containers[0].name: Invalid value: "chris_ui": a lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?')
+Error from server (Invalid): error when creating "chris_store-service.yaml": Service "chris_store" is invalid: metadata.name: Invalid value: "chris_store": a DNS-1035 label must consist of lower case alphanumeric characters or '-', start with an alphabetic character, and end with an alphanumeric character (e.g. 'my-name',  or 'abc-123', regex used for validation is '[a-z]([-a-z0-9]*[a-z0-9])?')
+Error from server (Invalid): error when creating "chris_store_ui-service.yaml": Service "chris_store_ui" is invalid: metadata.name: Invalid value: "chris_store_ui": a DNS-1035 label must consist of lower case alphanumeric characters or '-', start with an alphabetic character, and end with an alphanumeric character (e.g. 'my-name',  or 'abc-123', regex used for validation is '[a-z]([-a-z0-9]*[a-z0-9])?')
+Error from server (Invalid): error when creating "chris_ui-service.yaml": Service "chris_ui" is invalid: metadata.name: Invalid value: "chris_ui": a DNS-1035 label must consist of lower case alphanumeric characters or '-', start with an alphabetic character, and end with an alphanumeric character (e.g. 'my-name',  or 'abc-123', regex used for validation is '[a-z]([-a-z0-9]*[a-z0-9])?')
+Error from server (Invalid): error when creating "worker-periodic-pod.yaml": Pod "worker-periodic" is invalid: spec.containers[0].name: Invalid value: "worker_periodic": a lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-', and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc', regex used for validation is '[a-z0-9]([-a-z0-9]*[a-z0-9])?')
+
+
+
+// changes confilicting names were , replaced by the name of the file , 
+for e.g if invalid name was : Error from server (Invalid): error when creating "chris-store-db-deployment.yaml": Deployment.apps "chris-store-db" is invalid: spec.template.spec.containers[0].name: Invalid value: "chris_store_db"
+then the name "chris_store_db" was replaced by chris-store-db. 

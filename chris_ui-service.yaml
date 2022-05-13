@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml -o /home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s
+    kompose.version: 1.26.0 (40646f47)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: chris-ui
+  name: chris-ui-service
+spec:
+  ports:
+    - name: "8020"
+      port: 8020
+      targetPort: 3000
+  selector:
+    io.kompose.service: chris-ui
+status:
+  loadBalancer: {}
