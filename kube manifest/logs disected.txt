@@ -89,4 +89,4 @@ Error from server (Invalid): error when creating "worker-periodic-pod.yaml": Pod
 
 // changes confilicting names were , replaced by the name of the file , 
 for e.g if invalid name was : Error from server (Invalid): error when creating "chris-store-db-deployment.yaml": Deployment.apps "chris-store-db" is invalid: spec.template.spec.containers[0].name: Invalid value: "chris_store_db"
-then the name "chris_store_db" was replaced by chris-store-db. 
+then the name "chris_store_db" was replaced by chris-store-db. , later reverted this , as it would cause inconsistency and also might cause conflicts.

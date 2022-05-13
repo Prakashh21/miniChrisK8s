@@ -32,7 +32,7 @@ spec:
             - name: REACT_APP_STORE_URL
               value: http://localhost:8010/api/v1/
           image: docker.io/fnndsc/chris_store_ui:0.2.0-rc.1
-          name: chris-store-ui-deployment
+          name: chris-store-ui
           ports:
             - containerPort: 3000
           resources: {}

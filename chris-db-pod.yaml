@@ -108,7 +108,7 @@ spec:
               key: SWIFT_USERNAME
               name: secrets-env
       image: postgres:13
-      name: chris-db-pod
+      name: chris-db
       resources: {}
       volumeMounts:
         - mountPath: /var/lib/mysql

@@ -36,7 +36,7 @@ spec:
             - name: POSTGRES_USER
               value: chris
           image: postgres:13
-          name: chris-store-db-deployment
+          name: chris-store-db
           resources: {}
           volumeMounts:
             - mountPath: /var/lib/mysql
