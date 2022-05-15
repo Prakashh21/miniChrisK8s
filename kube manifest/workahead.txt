@@ -1,0 +1,18 @@
+##
+
+fix the ports that couldn't be created
+figure if env variables are correctly passed or not
+test services
+check if we can use cluster IP in pfcon
+figure out a way to use storebase , without chmod 777 , check if the trick used in miniChRIS would be applicable here or not.
+think of a way that how would you handle depends on services in the cluster.
+
+
+## ports issue important services
+
+chris_db                      // service created
+chris_store_db                // service created
+queue                         
+scheduler                     // service created
+worker                        // service created
+worker_periodic               // service created  

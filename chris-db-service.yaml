@@ -1,0 +1,11 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: chris-db-service
+spec:
+  selector:
+    app: chris-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
