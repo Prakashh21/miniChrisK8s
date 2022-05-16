@@ -16,3 +16,7 @@ queue
 scheduler                     // service created
 worker                        // service created
 worker_periodic               // service created  
+
+
+
+how would you pass celery broker url as an evironment variable, in the kubernetes cluster

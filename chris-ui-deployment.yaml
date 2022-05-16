@@ -30,7 +30,7 @@ spec:
             - --single
           env:
             - name: REACT_APP_CHRIS_UI_URL
-              value: http://localhost:8000/api/v1/
+              value: chris-service ##
           image: ghcr.io/fnndsc/chris_ui:20220304
           name: chris-ui
           ports:

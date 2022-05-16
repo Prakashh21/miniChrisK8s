@@ -27,7 +27,7 @@ spec:
       containers:
         - env:
             - name: DATABASE_HOST
-              value: chris_store_db
+              value: chris-store-db-service
             - name: DATABASE_PORT
               value: "5432"
             - name: DJANGO_ALLOWED_HOSTS
