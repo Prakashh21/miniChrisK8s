@@ -1,0 +1,15 @@
+
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: chris-db-pv
+  labels:
+    type: local
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /data/chris-db-pv

@@ -1,18 +1,19 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -f docker-compose.yml -o /home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s
-    kompose.version: 1.26.0 (40646f47)
-  creationTimestamp: null
-  labels:
-    io.kompose.network/local: "true"
-    io.kompose.service: queue
   name: queue
 spec:
-  containers:
-    - image: rabbitmq:3
+  replicas: 1
+  selector:
+    matchLabels:
       name: queue
-      resources: {}
-  restartPolicy: OnFailure
-status: {}
+  template:
+    metadata:
+      labels:
+        name: queue
+    spec:
+      containers:
+        - name: queue
+          image: rabbitmq
+          ports:
+          - containerPort: 5672

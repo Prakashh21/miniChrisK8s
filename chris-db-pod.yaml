@@ -1,121 +1,123 @@
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -f docker-compose.yml -o /home/prakash/openSource/miniChris-prakash/miniChRIS/miniChrisK8s
-    kompose.version: 1.26.0 (40646f47)
-  creationTimestamp: null
-  labels:
-    io.kompose.network/local: "true"
-    io.kompose.service: chris-db
   name: chris-db
 spec:
-  containers:
-    - env:
-        - name: CELERY_BROKER_URL
-          valueFrom:
-            configMapKeyRef:
-              key: CELERY_BROKER_URL
-              name: secrets-env
-        - name: CHRIS_STORE_URL
-          valueFrom:
-            configMapKeyRef:
-              key: CHRIS_STORE_URL
-              name: secrets-env
-        - name: DATABASE_HOST
-          valueFrom:
-            configMapKeyRef:
-              key: DATABASE_HOST
-              name: secrets-env
-        - name: DATABASE_PORT
-          valueFrom:
-            configMapKeyRef:
-              key: DATABASE_PORT
-              name: secrets-env
-        - name: DJANGO_ALLOWED_HOSTS
-          valueFrom:
-            configMapKeyRef:
-              key: DJANGO_ALLOWED_HOSTS
-              name: secrets-env
-        - name: DJANGO_CORS_ORIGIN_ALLOW_ALL
-          valueFrom:
-            configMapKeyRef:
-              key: DJANGO_CORS_ORIGIN_ALLOW_ALL
-              name: secrets-env
-        - name: DJANGO_CORS_ORIGIN_WHITELIST
-          valueFrom:
-            configMapKeyRef:
-              key: DJANGO_CORS_ORIGIN_WHITELIST
-              name: secrets-env
-        - name: DJANGO_SECRET_KEY
-          valueFrom:
-            configMapKeyRef:
-              key: DJANGO_SECRET_KEY
-              name: secrets-env
-        - name: DJANGO_SECURE_PROXY_SSL_HEADER
-          valueFrom:
-            configMapKeyRef:
-              key: DJANGO_SECURE_PROXY_SSL_HEADER
-              name: secrets-env
-        - name: DJANGO_SETTINGS_MODULE
-          valueFrom:
-            configMapKeyRef:
-              key: DJANGO_SETTINGS_MODULE
-              name: secrets-env
-        - name: DJANGO_USE_X_FORWARDED_HOST
-          valueFrom:
-            configMapKeyRef:
-              key: DJANGO_USE_X_FORWARDED_HOST
-              name: secrets-env
-        - name: POSTGRES_DB
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRES_DB
-              name: secrets-env
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRES_PASSWORD
-              name: secrets-env
-        - name: POSTGRES_USER
-          valueFrom:
-            configMapKeyRef:
-              key: POSTGRES_USER
-              name: secrets-env
-        - name: STATIC_ROOT
-          valueFrom:
-            configMapKeyRef:
-              key: STATIC_ROOT
-              name: secrets-env
-        - name: SWIFT_AUTH_URL
-          valueFrom:
-            configMapKeyRef:
-              key: SWIFT_AUTH_URL
-              name: secrets-env
-        - name: SWIFT_CONTAINER_NAME
-          valueFrom:
-            configMapKeyRef:
-              key: SWIFT_CONTAINER_NAME
-              name: secrets-env
-        - name: SWIFT_KEY
-          valueFrom:
-            configMapKeyRef:
-              key: SWIFT_KEY
-              name: secrets-env
-        - name: SWIFT_USERNAME
-          valueFrom:
-            configMapKeyRef:
-              key: SWIFT_USERNAME
-              name: secrets-env
-      image: postgres:13
-      name: chris-db
-      resources: {}
-      volumeMounts:
-        - mountPath: /var/lib/mysql
-          name: chris-db-data
-  restartPolicy: OnFailure
-  volumes:
-    - name: chris-db-data
-      persistentVolumeClaim:
-        claimName: chris-db-data
-status: {}
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chris-db
+  template:
+    metadata:
+      labels:
+        app: chris-db
+        tier: backend
+    spec:  
+      containers:
+        - name: postgres-container
+          image: postgres:13
+          env:
+            - name: CELERY_BROKER_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CELERY_BROKER_URL
+                  name: secrets-env
+            - name: CHRIS_STORE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CHRIS_STORE_URL
+                  name: secrets-env
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_HOST
+                  name: secrets-env
+            - name: DATABASE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: DATABASE_PORT
+                  name: secrets-env
+            - name: DJANGO_ALLOWED_HOSTS
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_ALLOWED_HOSTS
+                  name: secrets-env
+            - name: DJANGO_CORS_ORIGIN_ALLOW_ALL
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_CORS_ORIGIN_ALLOW_ALL
+                  name: secrets-env
+            - name: DJANGO_CORS_ORIGIN_WHITELIST
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_CORS_ORIGIN_WHITELIST
+                  name: secrets-env
+            - name: DJANGO_SECRET_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SECRET_KEY
+                  name: secrets-env
+            - name: DJANGO_SECURE_PROXY_SSL_HEADER
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SECURE_PROXY_SSL_HEADER
+                  name: secrets-env
+            - name: DJANGO_SETTINGS_MODULE
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_SETTINGS_MODULE
+                  name: secrets-env
+            - name: DJANGO_USE_X_FORWARDED_HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: DJANGO_USE_X_FORWARDED_HOST
+                  name: secrets-env
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_DB
+                  name: secrets-env
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_PASSWORD
+                  name: secrets-env
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: POSTGRES_USER
+                  name: secrets-env
+            - name: STATIC_ROOT
+              valueFrom:
+                configMapKeyRef:
+                  key: STATIC_ROOT
+                  name: secrets-env
+            - name: SWIFT_AUTH_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_AUTH_URL
+                  name: secrets-env
+            - name: SWIFT_CONTAINER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_CONTAINER_NAME
+                  name: secrets-env
+            - name: SWIFT_KEY
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_KEY
+                  name: secrets-env
+            - name: SWIFT_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  key: SWIFT_USERNAME
+                  name: secrets-env
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-volume-mount
+              mountPath: /var/lib/postgresql/data            
+      volumes:
+        - name: postgres-volume-mount
+          persistentVolumeClaim:
+            claimName: chris-db-data         
